@@ -1,0 +1,239 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+:root {
+  --primary-color: #a855f7;
+  --primary-color-dark: #9333ea;
+  --secondary-color: #b904ca;
+  --text-dark: #1f2937;
+  --text-light: #6b7280;
+  --extra-light: #faf5ff;
+  --card-bg: #ffffff;
+  --max-width: 1200px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background: var(--extra-light);
+  color: var(--text-dark);
+}
+
+.tema-transicao,
+.tema-transicao * {
+  transition: background-color 0.35s ease, color 0.35s ease,
+              border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+nav {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  padding: 1.5rem 0;
+  background-color: var(--card-bg);
+  border-bottom: 1px solid #ddd;
+}
+
+.conteudo_nav {
+  max-width: var(--max-width);
+  margin: auto;
+  padding: 0 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo p {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+  display: flex;
+  gap: 1.2rem;
+}
+
+ul li a {
+  text-decoration: none;
+  color: var(--text-dark);
+  padding: 0.5rem 1rem;
+  border: 2px solid transparent;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+ul li a:hover {
+  color: var(--secondary-color);
+  border-top-color: var(--secondary-color);
+  border-bottom-color: var(--secondary-color);
+}
+
+.sessao-portfolio {
+  padding: 9rem 2rem 4rem 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.container-portfolio {
+  max-width: var(--max-width);
+}
+
+.container-portfolio h1 {
+  text-align: center;
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: var(--primary-color-dark);
+  margin-bottom: 1rem;
+}
+
+.container-portfolio p.subtitulo {
+  text-align: center;
+  color: var(--text-light);
+  margin-bottom: 3rem;
+  font-size: 1.1rem;
+}
+
+.grid-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.card {
+  background: var(--card-bg);
+  border-radius: 22px;
+  padding: 2rem;
+  border: 1px solid rgba(169, 85, 247, 0.25);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg,
+              rgba(169, 85, 247, 0.15),
+              rgba(185, 4, 202, 0.15));
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 18px 45px rgba(169, 85, 247, 0.45);
+  border-color: var(--primary-color);
+}
+
+.card:hover::before {
+  opacity: 1;
+}
+
+.card h3 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--primary-color-dark);
+  margin-bottom: 0.8rem;
+}
+
+.card p {
+  color: var(--text-light);
+  font-size: 1rem;
+  line-height: 1.6rem;
+  margin-bottom: 1.2rem;
+}
+
+.card a {
+  display: inline-block;
+  margin-top: 0.6rem;
+  padding: 0.75rem 1.4rem;
+  background: var(--primary-color);
+  color: #fff;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.3s ease;
+}
+
+.card a:hover {
+  background: var(--primary-color-dark);
+  transform: translateY(-2px);
+}
+
+.animar {
+  opacity: 0;
+  transform: translateY(25px);
+  animation: subir 0.9s ease forwards;
+}
+
+@keyframes subir {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+body.dark {
+  background: #0b0b0b;
+  color: #e5e5e5;
+}
+
+body.dark nav {
+  background: #0f0f0f;
+  border-bottom-color: #2a2a2a;
+}
+
+body.dark ul li a {
+  color: #e5e5e5;
+}
+
+body.dark ul li a:hover {
+  color: var(--secondary-color);
+  border-color: var(--secondary-color);
+}
+
+body.dark .card {
+  background: #111;
+  border-color: rgba(169, 85, 247, 0.35);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.45);
+}
+
+body.dark .card::before {
+  background: linear-gradient(135deg,
+              rgba(169, 85, 247, 0.25),
+              rgba(185, 4, 202, 0.25));
+}
+
+body.dark .card:hover {
+  box-shadow: 0 20px 48px rgba(169, 85, 247, 0.55);
+}
+
+body.dark .card p {
+  color: #d6d6d6;
+}
+
+body.dark footer {
+  color: #aaaaaa;
+}
+
+@media (max-width: 850px) {
+  .container-portfolio h1 {
+    font-size: 2.3rem;
+  }
+
+  .grid-cards {
+    gap: 1.5rem;
+  }
+}

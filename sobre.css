@@ -7,6 +7,7 @@
   --text-dark: #1f2937;
   --text-light: #6b7280;
   --extra-light: #faf5ff;
+  --bg-card: #ffffff;
   --max-width: 1200px;
 }
 
@@ -28,6 +29,8 @@ nav {
   top: 0;
   left: 0;
   z-index: 100;
+  background-color: var(--bg-card);
+  border-bottom: 1px solid #ddd;
 }
 
 .conteudo_nav {
@@ -39,7 +42,7 @@ nav {
   align-items: center;
 }
 
-.logo a {
+.logo p {
   font-size: 1.7rem;
   font-weight: 700;
   color: var(--primary-color);
@@ -69,6 +72,19 @@ ul li a:hover {
   color: var(--secondary-color);
 }
 
+.fade-up {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUpAnim 0.8s ease forwards;
+}
+
+@keyframes fadeUpAnim {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .sessao-sobre {
   padding: 9rem 2rem;
   display: flex;
@@ -85,7 +101,8 @@ ul li a:hover {
 }
 
 .container:hover {
-  box-shadow: 0 14px 40px #b904ca;
+  box-shadow: 0 14px 40px rgba(185, 4, 202, 0.45);
+  transform: translateY(-4px);
 }
 
 .container h1 {
@@ -141,15 +158,8 @@ ul li a:hover {
 
 .lista-competencias li:hover {
   background: var(--primary-color-dark);
-  transform: translateY(-3px);
-}
-
-footer {
-  text-align: center;
-  padding: 2rem 0;
-  margin-top: 4rem;
-  color: var(--text-light);
-  font-size: 0.9rem;
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 4px 12px rgba(147, 51, 234, 0.4);
 }
 
 @media (max-width: 850px) {
@@ -178,9 +188,14 @@ footer {
   transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
 }
 
+body.dark {
+  background: #0f0f0f;
+  color: #e5e5e5;
+}
+
 body.dark nav {
   background: #0f0f0f;
-  border-bottom-color: #2a2a2a; 
+  border-bottom-color: #2a2a2a;
 }
 
 body.dark .conteudo_nav .logo a {
@@ -195,4 +210,26 @@ body.dark ul li a:hover {
   color: var(--secondary-color);
   border-top-color: var(--secondary-color);
   border-bottom-color: var(--secondary-color);
+}
+
+body.dark .container {
+  background: #1a1a1a;
+  box-shadow: 0 10px 30px rgba(185, 4, 202, 0.22);
+}
+
+body.dark .container:hover {
+  box-shadow: 0 14px 40px rgba(185, 4, 202, 0.42);
+}
+
+body.dark .container p,
+body.dark .subtitulo {
+  color: #cfcfcf;
+}
+
+body.dark .competencias h2 {
+  color: #fff;
+}
+
+body.dark footer {
+  color: #b5b5b5;
 }
