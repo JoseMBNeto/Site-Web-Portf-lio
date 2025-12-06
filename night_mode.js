@@ -1,80 +1,68 @@
 (function () {
-  const CHAVE_TEMA = "tema"; 
-  const corpo = document.documentElement; 
+  const CHAVE = "tema";
+  const body = document.body;
 
-  const temaClaro = {
-    "--primary-color": "#a855f7",
-    "--primary-color-dark": "#9333ea",
-    "--secondary-color": "#b904ca",
-    "--text-dark": "#1f2937",
-    "--text-light": "#6b7280",
-    "--extra-light": "#faf5ff",
-    "--bg-card": "#ffffff"
-  };
+  const botao =
+    document.getElementById("botaoTema") ||
+    document.getElementById("botao_tema") ||
+    document.querySelector(".botao-tema") ||
+    document.querySelector(".theme-toggle");
 
-  const temaEscuro = {
-    "--primary-color": "#8b5cf6",
-    "--primary-color-dark": "#5b21b6",
-    "--secondary-color": "#b904ca",
-    "--text-dark": "#e6e6f0",
-    "--text-light": "#cfc7e9",
-    "--extra-light": "#0f0f12",
-    "--bg-card": "#141218"
-  };
-
-  function aplicarVariaveis(variaveis) {
-    Object.keys(variaveis).forEach((key) => {
-      corpo.style.setProperty(key, variaveis[key]);
-    });
-  }
-
-  function aplicarClasseVisual(nome) {
-    const bodyEl = document.body;
-    if (nome === "escuro") {
-      bodyEl.classList.add("modo-escuro");
+  function atualizarIcone() {
+    if (!botao) return;
+    if (body.classList.contains("dark") || body.classList.contains("modo-escuro")) {
+      botao.textContent = "☀️";
+      botao.setAttribute("aria-pressed", "true");
     } else {
-      bodyEl.classList.remove("modo-escuro");
+      botao.textContent = "🌙";
+      botao.setAttribute("aria-pressed", "false");
     }
   }
 
-  function transicaoSuave() {
-    const bodyEl = document.body;
-    bodyEl.classList.add("tema-transicao");
-    window.setTimeout(() => {
-      bodyEl.classList.remove("tema-transicao");
-    }, 400);
+  function aplicarTema(nome) {
+    if (nome === "dark") {
+      body.classList.add("dark");
+      body.classList.add("modo-escuro");
+    } else {
+      body.classList.remove("dark");
+      body.classList.remove("modo-escuro");
+    }
+    body.classList.add("tema-transicao");
+    window.setTimeout(() => body.classList.remove("tema-transicao"), 500);
+
+    atualizarIcone();
   }
 
   window.alternarTema = function () {
-    const atual = localStorage.getItem(CHAVE_TEMA) || "claro";
-    const proximo = atual === "escuro" ? "claro" : "escuro";
+    const atual = localStorage.getItem(CHAVE) || "light";
+    const proximo = atual === "dark" ? "light" : "dark";
     aplicarTema(proximo);
-    localStorage.setItem(CHAVE_TEMA, proximo);
+    localStorage.setItem(CHAVE, proximo);
   };
 
-  function aplicarTema(nome) {
-    transicaoSuave();
-    if (nome === "escuro") {
-      aplicarVariaveis(temaEscuro);
-      aplicarClasseVisual("escuro");
+  function inicializar() {
+    const salvo = localStorage.getItem(CHAVE);
+    if (salvo === "dark") {
+      aplicarTema("dark");
     } else {
-      aplicarVariaveis(temaClaro);
-      aplicarClasseVisual("claro");
+      aplicarTema("light");
     }
   }
 
-  function inicializar() {
-    const salvo = localStorage.getItem(CHAVE_TEMA);
-    if (salvo === "escuro") {
-      aplicarTema("escuro");
-    } else {
-      aplicarTema("claro"); // padrão
-    }
+  function ligarBotao() {
+    if (!botao) return;
+    botao.removeEventListener("click", window.alternarTema);
+    botao.addEventListener("click", window.alternarTema);
+    if (!botao.hasAttribute("aria-label")) botao.setAttribute("aria-label", "Alternar tema");
   }
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", inicializar);
+    document.addEventListener("DOMContentLoaded", () => {
+      inicializar();
+      ligarBotao();
+    });
   } else {
     inicializar();
+    ligarBotao();
   }
 })();
